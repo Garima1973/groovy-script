@@ -16,6 +16,18 @@ pipeline {
                 sshagent(['frontend']) {
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.234.66.239 "sudo rm -r /var/www/html/*"'
                     sh 'scp -o StrictHostKeyChecking=no -r * ubuntu@13.234.66.239:/home/ubuntu/frontend/'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.234.66.239 "sudo mv /home/ubuntu/frontend/* /var/www/html/"'
+
+                    }
+            }
+        }
+
+         stage('Restart Nginx'){
+
+            steps{
+                sshagent(['frontend']) {
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.234.66.239 "sudo systemctl restart nginx"'
+
                     }
             }
         }
