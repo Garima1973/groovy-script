@@ -9,7 +9,7 @@ pipeline {
         stage('pull code'){
 
             steps{
-                git branch: 'main', url: 'https://github.com/Garima1973/Clientapp.git'
+                git branch: 'main', url: 'https://github.com/Garima1973/newclientapp.git'
             }
         }
 
