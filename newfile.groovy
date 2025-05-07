@@ -9,7 +9,7 @@ pipeline {
         stage('pull code'){
 
             steps{
-                git branch: 'main', url: 'https://github.com/DiyorShodmonov/WareHouse-master.git'
+                git branch: 'main', url: 'https://github.com/Garima1973/backendnew7052025.git'
             }
         }
 
