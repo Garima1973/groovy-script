@@ -6,7 +6,7 @@ pipeline {
         stage('pull code'){
 
             steps{
-                git branch: 'main', url: 'https://github.com/Garima1973/groovy-script.git'
+                git branch: 'main', url: 'https://github.com/Garima1973/frontend-docker-cicd.git'
             }
         }
 
