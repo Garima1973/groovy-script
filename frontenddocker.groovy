@@ -12,8 +12,11 @@ pipeline {
         stage('sending files to docker server')
         {
             steps{
+                  sshagent(['docker_server'])
+                   {
                 sh 'scp -o StrictHostKeyChecking=no -r * ubuntu@52.62.1.66:/home/ubuntu/frontenddocker/'
                 // public ip of docker because docker is the destination
+                  }
             }
         }
 
