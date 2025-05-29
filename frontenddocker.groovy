@@ -19,6 +19,15 @@ pipeline {
                   }
             }
         }
+        stage('docker image')
+        {
+            steps{
+                sshagent(['docker_server'])
+                {
+                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.24.136.56 "docker build -t frontenddocker_jenkins"'
+                }
+            }
+        }
 
     }
  }
