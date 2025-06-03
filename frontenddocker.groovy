@@ -34,9 +34,9 @@ pipeline {
             steps{
                 sshagent(['docker_server'])
                 {   
-                   sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.178.245 "docker stop f37f21c148714a19d23d8090d7fd2909e8f9"' 
+                //    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.178.245 "docker stop f37f21c148714a19d23d8090d7fd2909e8f9"' 
 
-                   sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.178.245 "docker rm f37f21c148714a19d23d8090d7fd2909e8f9"' 
+                //    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.178.245 "docker rm f37f21c148714a19d23d8090d7fd2909e8f9"' 
 
  
                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.178.245 "docker run -d -p 5007:80 frontenddockerjenkins"' 
