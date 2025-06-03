@@ -14,7 +14,7 @@ pipeline {
             steps{
                   sshagent(['docker_server'])
                    {
-                sh 'scp -o StrictHostKeyChecking=no -r * ubuntu@3.24.136.56:/home/ubuntu/frontenddocker/'
+                sh 'scp -o StrictHostKeyChecking=no -r * ubuntu@3.107.178.245:/home/ubuntu/frontenddocker/'
                 // public ip of docker because docker is the destination
                   }
             }
