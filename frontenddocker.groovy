@@ -32,7 +32,7 @@ pipeline {
         stage('docker run')
         {
             steps{
-                sshagent([docker_server])
+                sshagent(['docker_server'])
                 {
                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.24.136.56 "docker run -d -p 5007:80 frontenddockerjenkins"' 
                 }
