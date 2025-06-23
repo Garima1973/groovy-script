@@ -19,15 +19,15 @@ pipeline {
                   }
             }
         }
-        // stage('docker image')
-        // {
-        //     steps{
-        //         sshagent(['docker_server'])
-        //         {
-        //              sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.192.112 "docker build -t frontenddockerjenkins /home/ubuntu/frontenddocker"'
-        //         }
-        //     }
-        // }
+        stage('docker image')
+        {
+            steps{
+                sshagent(['docker_server'])
+                {
+                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.211.158.126 "docker build -t backenddockerjenkins /home/ubuntu/backendocker"'
+                }
+            }
+        }
 
         // stage('docker run')
         // {
