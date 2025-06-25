@@ -14,7 +14,7 @@ pipeline {
             steps{
                   sshagent(['docker_server'])
                    {
-                sh 'scp -o StrictHostKeyChecking=no -r * ubuntu@13.211.158.126:/home/ubuntu/backendocker/'
+                sh 'scp -o StrictHostKeyChecking=no -r * ubuntu@54.252.71.148:/home/ubuntu/backendocker/'
                 // public ip of docker because docker is the destination
                   }
             }
@@ -24,25 +24,25 @@ pipeline {
             steps{
                 sshagent(['docker_server'])
                 {
-                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.211.158.126 "docker build -t backenddockerjenkins /home/ubuntu/backendocker"'
+                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.252.71.148 "docker build -t backenddockerjenkins /home/ubuntu/backendocker"'
                 }
             }
         }
 
-        // stage('docker run')
-        // {
-        //     steps{
-        //         sshagent(['docker_server'])
-        //         {   
-        //            sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.192.112 "docker stop freedocker"' 
+        stage('docker run')
+        {
+            steps{
+                sshagent(['docker_server'])
+                {   
+                   sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.252.71.148 "docker stop backenddockerjenkins"' 
 
-        //            sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.192.112 "docker rm freedocker"' 
+                   sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.252.71.148 "docker rm backenddockerjenkins"' 
 
  
-        //            sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.192.112 "docker run -d -p 5007:80 --name freedocker frontenddockerjenkins"' 
-        //         }
-        //     }
-        // }
+                   sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.252.71.148 "docker run -d -p 8080:80 --name backenddockerjenkins backenddockerjenkins"' 
+                }
+            }
+        }
 
           
 
