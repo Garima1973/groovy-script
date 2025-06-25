@@ -39,7 +39,7 @@ pipeline {
                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.252.71.148 "docker rm backenddockerjenkins"' 
 
  
-                   sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.252.71.148 "docker run -d -p 8080:80 --name backenddockerjenkins backenddockerjenkins"' 
+                   sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.252.71.148 "docker run -d -p 8080:8080 --name backenddockerjenkins --network my-network  backenddockerjenkins"' 
                 }
             }
         }
