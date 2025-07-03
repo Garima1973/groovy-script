@@ -6,7 +6,7 @@ pipeline {
         stage('pull code'){
 
             steps{
-                git branch: 'main', url: 'https://github.com/Garima1973/FinalProjectFile.git'
+                git branch: 'master', url: 'https://github.com/Garima1973/FinalProjectFile.git'
             }
         }
         stage('sending files to docker server')
