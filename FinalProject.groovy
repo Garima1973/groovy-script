@@ -24,7 +24,7 @@ pipeline {
             steps{
                 sshagent(['docker_server'])
                 {
-                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.239.37.205 "docker build -t finalprojectdockerjenkins /home/ubuntu/FinalProject"'
+                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.239.37.205 "docker build -t garima3201/finalprojectdockerjenkins /home/ubuntu/FinalProject"'
                 }
             }
         }
