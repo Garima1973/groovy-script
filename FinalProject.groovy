@@ -14,7 +14,7 @@ pipeline {
             steps{
                   sshagent(['docker_server'])
                    {
-                sh 'scp -o StrictHostKeyChecking=no -r * ubuntu@13.239.37.205:/home/ubuntu/FinalProject'
+                sh 'scp -o StrictHostKeyChecking=no -r * ubuntu@3.107.209.210:/home/ubuntu/FinalProject'
                 // public ip of docker because docker is the destination
                   }
             }
@@ -24,25 +24,38 @@ pipeline {
             steps{
                 sshagent(['docker_server'])
                 {
-                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@13.239.37.205 "docker build -t garima3201/finalprojectdockerjenkins /home/ubuntu/FinalProject"'
+                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "docker build -t garima3201/finalprojectdockerjenkins /home/ubuntu/FinalProject"'
                 }
             }
         }
 
-        // stage('docker run')
-        // {
-        //     steps{
-        //         sshagent(['docker_server'])
-        //         {   
-        //            sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.252.71.148 "docker stop backenddockerjenkins"' 
 
-        //            sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.252.71.148 "docker rm backenddockerjenkins"' 
+        stage('Build Docker Image on Remote Server') {
+            steps {
+                sshagent(['docker_server']) {
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "
+                        docker build -t ${garima3201/finalprojectdockerjenkins}:v1.$BUILD_ID /home/ubuntu/FinalProject &&
+                        docker tag ${garima3201/finalprojectdockerjenkins}:v1.$BUILD_ID ${garima3201/finalprojectdockerjenkins}:latest"
+                    '''
+                }
+            }
+        }
 
- 
-        //            sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.252.71.148 "docker run -d -p 8080:8080 --name backenddockerjenkins --network my-network  backenddockerjenkins"' 
-        //         }
-        //     }
-        // }
+        stage('Push Image to DockerHub') {
+            steps {
+                withCredentials([string(credentialsId: 'Dockerpassid', variable: 'dockerpass')]) {
+                    sshagent(['docker_server']) {
+                        sh '''
+                            ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "
+                            docker login -u garima3201 -p ${dockerpass} &&
+                            docker push ${garima3201/finalprojectdockerjenkins}:v1.$BUILD_ID &&
+                            docker push ${garima3201/finalprojectdockerjenkins}:latest"
+                        '''
+                    }
+                }
+            }
+        }
 
           
 
