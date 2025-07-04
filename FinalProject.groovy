@@ -30,32 +30,30 @@ pipeline {
         }
 
 
+
         stage('Build Docker Image on Remote Server') {
             steps {
                 sshagent(['docker_server']) {
-                    sh '''
-                        ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "
-                        docker build -t ${garima3201/finalprojectdockerjenkins}:v1.$BUILD_ID /home/ubuntu/FinalProject &&
-                        docker tag ${garima3201/finalprojectdockerjenkins}:v1.$BUILD_ID ${garima3201/finalprojectdockerjenkins}:latest"
-                    '''
+                    sh 'docker image build -t finalprojectdockerjenkins:v1.$BUILD_ID .'
+                    sh 'docker image tag finalprojectdockerjenkins:v1.$BUILD_ID gariam3201/finalprojectdockerjenkins:v1.$BUILD_ID'
                 }
             }
         }
 
-        stage('Push Image to DockerHub') {
-            steps {
-                withCredentials([string(credentialsId: 'Dockerpassid', variable: 'dockerpass')]) {
-                    sshagent(['docker_server']) {
-                        sh '''
-                            ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "
-                            docker login -u garima3201 -p ${dockerpass} &&
-                            docker push ${garima3201/finalprojectdockerjenkins}:v1.$BUILD_ID &&
-                            docker push ${garima3201/finalprojectdockerjenkins}:latest"
-                        '''
-                    }
-                }
-            }
-        }
+        // stage('Push Image to DockerHub') {
+        //     steps {
+        //         withCredentials([string(credentialsId: 'Dockerpassid', variable: 'dockerpass')]) {
+        //             sshagent(['docker_server']) {
+        //                 sh '''
+        //                     ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "
+        //                     docker login -u garima3201 -p ${dockerpass} &&
+        //                     docker push ${garima3201/finalprojectdockerjenkins}:v1.$BUILD_ID &&
+        //                     docker push ${garima3201/finalprojectdockerjenkins}:latest"
+        //                 '''
+        //             }
+        //         }
+        //     }
+        // }
 
           
 
