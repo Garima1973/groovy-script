@@ -34,7 +34,8 @@ pipeline {
         stage('Build Docker Image on Remote Server') {
             steps {
                 sshagent(['docker_server']) {
-                    sh 'docker image build -t finalprojectdockerjenkins:v1.$BUILD_ID .'
+                    
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "docker image build -t finalprojectdockerjenkins:v1.$BUILD_ID ."'
                     sh 'docker image tag finalprojectdockerjenkins:v1.$BUILD_ID gariam3201/finalprojectdockerjenkins:v1.$BUILD_ID'
                 }
             }
