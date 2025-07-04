@@ -36,7 +36,7 @@ pipeline {
                 sshagent(['docker_server']) {
                     
                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "docker image build -t finalprojectdockerjenkins:v1.$BUILD_ID /home/ubuntu/FinalProject"'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "docker image tag finalprojectdockerjenkins:v1.$BUILD_ID gariam3201/finalprojectdockerjenkins:v1.$BUILD_ID"'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "docker image tag finalprojectdockerjenkins:v1.$BUILD_ID garima3201/finalprojectdockerjenkins:v1.$BUILD_ID"'
                 }
             }
         }
