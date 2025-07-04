@@ -41,20 +41,20 @@ pipeline {
             }
         }
 
-        // stage('Push Image to DockerHub') {
-        //     steps {
-        //         withCredentials([string(credentialsId: 'Dockerpassid', variable: 'dockerpass')]) {
-        //             sshagent(['docker_server']) {
-        //                 sh '''
-        //                     ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "
-        //                     docker login -u garima3201 -p ${dockerpass} &&
-        //                     docker push ${garima3201/finalprojectdockerjenkins}:v1.$BUILD_ID &&
-        //                     docker push ${garima3201/finalprojectdockerjenkins}:latest"
-        //                 '''
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Push Image to DockerHub') {
+            steps {
+                withCredentials([string(credentialsId: 'Dockerpassid', variable: 'dockerpass')]) {
+                    sshagent(['docker_server']) {
+                        sh '''
+                            ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "
+                            docker login -u garima3201 -p ${dockerpass} &&
+                            docker push garima3201/finalprojectdockerjenkins:v1.$BUILD_ID &&
+                            docker push garima3201/finalprojectdockerjenkins:latest"
+                        '''
+                    }
+                }
+            }
+        }
 
           
 
