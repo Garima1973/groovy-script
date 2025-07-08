@@ -56,7 +56,17 @@ pipeline {
             }
         }
 
-          
+         stage('Kubernetes Execution') {
+            steps {
+                sshagent(['KubID']) {
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.25.110.19 rm -r /home/ubuntu/templates'
+                    sh 'scp -r -o StrictHostKeyChecking=no templates/ ubuntu@3.25.110.19:/home/ubuntu/'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.25.110.19 kubectl delete -f /home/ubuntu/templates/'
+                    sh 'sleep 5 && echo "Waiting for pods to terminate"'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.25.110.19 kubectl apply -f /home/ubuntu/templates/'
+                }
+            }
+        } 
 
     }
  }
