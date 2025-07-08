@@ -14,7 +14,7 @@ pipeline {
             steps{
                   sshagent(['docker_server'])
                    {
-                sh 'scp -o StrictHostKeyChecking=no -r * ubuntu@3.107.209.210:/home/ubuntu/FinalProject'
+                sh 'scp -o StrictHostKeyChecking=no -r * ubuntu@54.252.228.164:/home/ubuntu/FinalProject'
                 // public ip of docker because docker is the destination
                   }
             }
@@ -24,7 +24,7 @@ pipeline {
             steps{
                 sshagent(['docker_server'])
                 {
-                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "docker build -t garima3201/finalprojectdockerjenkins /home/ubuntu/FinalProject"'
+                     sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.252.228.164 "docker build -t garima3201/finalprojectdockerjenkins /home/ubuntu/FinalProject"'
                 }
             }
         }
@@ -35,8 +35,8 @@ pipeline {
             steps {
                 sshagent(['docker_server']) {
                     
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "docker image build -t finalprojectdockerjenkins:v1.$BUILD_ID /home/ubuntu/FinalProject"'
-                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "docker image tag finalprojectdockerjenkins:v1.$BUILD_ID garima3201/finalprojectdockerjenkins:v1.$BUILD_ID"'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.252.228.164 "docker image build -t finalprojectdockerjenkins:v1.$BUILD_ID /home/ubuntu/FinalProject"'
+                    sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.252.228.164 "docker image tag finalprojectdockerjenkins:v1.$BUILD_ID garima3201/finalprojectdockerjenkins:v1.$BUILD_ID"'
                 }
             }
         }
@@ -46,7 +46,7 @@ pipeline {
                 withCredentials([string(credentialsId: 'Dockerpassid', variable: 'dockerpass')]) {
                     sshagent(['docker_server']) {
                         sh '''
-                            ssh -o StrictHostKeyChecking=no ubuntu@3.107.209.210 "
+                            ssh -o StrictHostKeyChecking=no ubuntu@54.252.228.164 "
                             docker login -u garima3201 -p ${dockerpass} &&
                             docker push garima3201/finalprojectdockerjenkins:v1.$BUILD_ID &&
                             docker push garima3201/finalprojectdockerjenkins:latest"
